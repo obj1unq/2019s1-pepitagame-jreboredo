@@ -6,16 +6,35 @@ object pepita {
 	var property ciudad = buenosAires 
 
 	var property position = game.at(3,3)
-	method image() = "pepita.png"
-
+	method image() {
+		if(self.estaGorda()){
+			return "pepita-gorda-raw.png"
+		}else{
+			return "pepita.png"
+		}
+	}
+	method estaGorda(){
+		return self.energia() > 100
+	}
 	method come(comida) {
 		energia = energia + comida.energia()
 	}
-	
+	method puedeVolarPorEnergia(unaCiudad){
+		return (self.energia() >= self.energiaParaVolar(self.distanciaA(unaCiudad)))
+	} 
+	method distanciaA(unaCiudad){
+		return position.distance(unaCiudad.position()) 
+		/*(unaCiudad.position()) - self.position()*/
+	}
+	/*Se agrega la logica para probar y testear en el pepitaGame. Pero se deja la funcion cometnada. */
 	method volaHacia(unaCiudad) {
-		if (ciudad != unaCiudad) {
+		if (not(self.puedeVolarPorEnergia(unaCiudad))){
+			game.say(self, "Dame de Comer Primero")
+		}else if(ciudad != unaCiudad) {
 			self.move(unaCiudad.position())
 			ciudad = unaCiudad
+		}else{
+			game.say(self,("Ya estoy en " + self.ciudad().nombre() + "!!"))
 		}
 	}
 
