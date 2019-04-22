@@ -24,7 +24,6 @@ object pepita {
 	} 
 	method distanciaA(unaCiudad){
 		return position.distance(unaCiudad.position()) 
-		/*(unaCiudad.position()) - self.position()*/
 	}
 	/*Se agrega la logica para probar y testear en el pepitaGame. Pero se deja la funcion cometnada. */
 	method volaHacia(unaCiudad) {
@@ -44,4 +43,10 @@ object pepita {
 		energia -= self.energiaParaVolar(position.distance(nuevaPosicion))
 		self.position(nuevaPosicion)
 	}	
+	
+	method volaYCome(unaComida){
+		self.move(unaComida.position())
+		self.come(unaComida)
+		game.removeVisual(unaComida)
+	}
 }

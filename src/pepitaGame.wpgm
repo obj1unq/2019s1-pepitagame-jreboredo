@@ -12,8 +12,8 @@ program PepitaGame {
 	game.ground("suelo.png")
 
 //	VISUALES
-	game.addVisualIn(alpiste, game.at(5,5))
-	game.addVisualIn(manzana, game.at(5,1))
+	game.addVisual(alpiste)
+	game.addVisual(manzana)
 	game.addVisual(buenosAires)
 	game.addVisual(villaGesell)
 	game.addVisual(pepita)
@@ -29,19 +29,8 @@ program PepitaGame {
 	keyboard.left().onPressDo { pepita.move(pepita.position().left(1)) }
 	keyboard.right().onPressDo { pepita.move(pepita.position().right(1)) }
 	
-	keyboard.m().onPressDo { pepita.move(game.at(5,1))
-		pepita.come(manzana)
-		game.removeVisual(manzana)
-	}
-	/*keyboard.m().whenKeyPressedDo(m(), action) n
-	 * Me queda la duda en este caso como para que el movimiento sea unico. Encontre este metodo, 
-	 * pero su implementacion era un poco compleja, ya que recibe una tecla por parametro. 
-	 *DUDA PARA EL LUNES 22/4 PARA AMBOS PROCEDMIIENTOS (ARRIBA Y ABAJO)*/
-	
-	keyboard.a().onPressDo { pepita.move(game.at(5,5))
-		pepita.come(alpiste)
-		game.removeVisual(alpiste)
-	}
+	keyboard.m().onPressDo { pepita.volaYCome(manzana) }	
+	keyboard.a().onPressDo { pepita.volaYCome(alpiste) }
 		
 //	START
 	game.start()
