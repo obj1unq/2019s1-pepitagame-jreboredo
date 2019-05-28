@@ -3,8 +3,14 @@ import ciudades.*
 import comidas.*
 import roque.*
 import wollok.game.*
+import comidas.*
 
 program PepitaGame {
+// INICIALIZACION DE INSTANCIAS INICIALES
+	var alpisteInicial = new Alpiste()
+	var manzanaInicial = new Manzana()
+		alpisteInicial.ubicacionRandom()
+		manzanaInicial.ubicacionRandom()
 	
 //	CONFIG	
 	game.title("Pepita")
@@ -13,17 +19,17 @@ program PepitaGame {
 	game.ground("suelo.png")
 
 //	VISUALES
-	game.addVisual(alpiste)
-	game.addVisual(manzana)
+	game.addVisual(alpisteInicial)
+	game.addVisual(manzanaInicial)
 	game.addVisual(buenosAires)
 	game.addVisual(villaGesell)
 	game.addVisual(pepita)
 	game.addVisual(roque)
 	
-//  COLISIONES	
-	game.whenCollideDo(manzana, { roque => roque.recolectarComida(manzana)})
+//  COLISIONES	Roque no recolecta ni le da la comida a pepita
+	/*game.whenCollideDo(manzana, { roque => roque.recolectarComida(manzana)})
 	game.whenCollideDo(alpiste, { roque => roque.recolectarComida(alpiste)})
-	game.whenCollideDo(pepita,  { roque => roque.darDeComerYSoltarComida(pepita)})
+	game.whenCollideDo(pepita,  { roque => roque.darDeComerYSoltarComida(pepita)})*/
 
 //	TECLADO
 	keyboard.h().onPressDo { game.say(pepita, "Hola chiques!") }
@@ -36,9 +42,16 @@ program PepitaGame {
 	keyboard.left().onPressDo { roque.move(roque.position().left(1)) }
 	keyboard.right().onPressDo { roque.move(roque.position().right(1)) }
 	
+	keyboard.w().onPressDo { pepita.move(pepita.position().up(1)) }
+	keyboard.s().onPressDo { pepita.move(pepita.position().down(1)) }
+	keyboard.a().onPressDo { pepita.move(pepita.position().left(1)) }
+	keyboard.d().onPressDo { pepita.move(pepita.position().right(1)) }
+	
+	/*keyboard.l().onPressDo {roque.dejarComida_()}
+	
 	keyboard.m().onPressDo { pepita.volaYCome(manzana) }	
 	keyboard.a().onPressDo { pepita.volaYCome(alpiste) }
-		
+		 */
 //	START
 	game.start()
 }
